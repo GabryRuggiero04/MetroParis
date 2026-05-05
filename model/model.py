@@ -44,11 +44,11 @@ class Model:
 
     def getArchiPesoMaggiore(self):
         edges = self._grafo.edges(data = True)
-
+        #si prendono gli archi e si fanno vedere le caratteristiche (peso) grazie "data=True", default è False
         edgesMaggiori = []
         for e in edges:
             if self._grafo.get_edge_data(e[0], e[1])["weight"] > 1:
-                #self._grafo[e[0]][e[1]]["weight"]
+                #La riga precedente sarebbe uguale a fare self._grafo[e[0]][e[1]]["weight"]
                 edgesMaggiori.append(e)
         return edgesMaggiori
 
