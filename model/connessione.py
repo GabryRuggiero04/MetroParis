@@ -1,7 +1,7 @@
 from dataclasses import dataclass
 
 @dataclass
-class Connesione:
+class Connessione:
     id_connessione: int
     id_linea: int
     id_stazP: int

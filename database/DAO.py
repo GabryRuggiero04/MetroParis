@@ -1,6 +1,6 @@
 from database.DB_connect import DBConnect
 from model.fermata import Fermata
-from model.connessione import Connesione
+from model.connessione import Connessione
 
 
 class DAO():
@@ -86,6 +86,28 @@ class DAO():
 
         for row in cursor:
             result.append((row["id_stazP"], row["id_stazA"], row["peso"]))
+
+        cursor.close()
+        conn.close()
+        return result
+
+    @staticmethod
+    def getAllEdgesVel():
+        conn = DBConnect.get_connection()
+
+        result = []
+
+        cursor = conn.cursor(dictionary=True)
+        query = """SELECT c.id_stazP , c.id_stazA , max(l.velocita) as v
+                    FROM connessione c , linea l 
+                    WHERE l.id_linea = c.id_linea 
+                    group by c.id_stazP , c.id_stazA 
+                    order by v asc"""
+
+        cursor.execute(query)
+
+        for row in cursor:
+            result.append((row["id_stazP"], row["id_stazA"], row["v"]))
 
         cursor.close()
         conn.close()
